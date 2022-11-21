@@ -42,7 +42,7 @@ geometry.setAttribute('aRandom', new THREE.BufferAttribute(randoms, 1))
 // this is not necessary but very helpful
 
 // Material
-const material = new THREE.RawShaderMaterial({
+const material = new THREE.ShaderMaterial({
     vertexShader: testVertexShader,
     fragmentShader: testFragmentShader,
     side: THREE.DoubleSide,
@@ -54,6 +54,18 @@ const material = new THREE.RawShaderMaterial({
         uTexture: { value: flagTexture }
     }
 })
+// const material = new THREE.RawShaderMaterial({
+//     vertexShader: testVertexShader,
+//     fragmentShader: testFragmentShader,
+//     side: THREE.DoubleSide,
+//     // transparent: true,
+//     uniforms: {
+//         uFrequency: { value: new THREE.Vector2(10, 5) },
+//         uTime: { value: 0, },
+//         uColor: { value: new THREE.Color(0xf9009f) },
+//         uTexture: { value: flagTexture }
+//     }
+// })
 
 gui.add(material.uniforms.uFrequency.value, 'x', 0, 20, .01).name('frequency X')
 gui.add(material.uniforms.uFrequency.value, 'y', 0, 20, .01).name('frequency Y')
