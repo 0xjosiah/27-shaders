@@ -44,10 +44,10 @@ geometry.setAttribute('aRandom', new THREE.BufferAttribute(randoms, 1))
 const material = new THREE.RawShaderMaterial({
     vertexShader: testVertexShader,
     fragmentShader: testFragmentShader,
-    // side: THREE.DoubleSide,
+    side: THREE.DoubleSide,
     // transparent: true,
     uniforms: {
-        uFrequency: { value: 10 }
+        uFrequency: { value: new THREE.Vector2(10, 5) }
     }
 })
 
