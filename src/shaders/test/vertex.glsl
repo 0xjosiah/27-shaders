@@ -6,8 +6,10 @@ uniform float uTime;
 
 attribute vec3 position;
 attribute float aRandom;
+attribute vec2 uv;
 
 varying float vRandom;
+varying vec2 vUv;
 
 void main() 
 {
@@ -22,4 +24,5 @@ void main()
     gl_Position = projectionPosition;
 
     vRandom = aRandom;
+    vUv = uv;
 }
