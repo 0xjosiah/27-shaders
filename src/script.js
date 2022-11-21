@@ -45,7 +45,10 @@ const material = new THREE.RawShaderMaterial({
     vertexShader: testVertexShader,
     fragmentShader: testFragmentShader,
     // side: THREE.DoubleSide,
-    transparent: true,
+    // transparent: true,
+    uniforms: {
+        uFrequency: { value: 10 }
+    }
 })
 
 // Mesh
