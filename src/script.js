@@ -47,7 +47,8 @@ const material = new THREE.RawShaderMaterial({
     side: THREE.DoubleSide,
     // transparent: true,
     uniforms: {
-        uFrequency: { value: new THREE.Vector2(10, 5) }
+        uFrequency: { value: new THREE.Vector2(10, 5) },
+        uTime: { value: 0, }
     }
 })
 
@@ -56,6 +57,7 @@ gui.add(material.uniforms.uFrequency.value, 'y', 0, 20, .01).name('frequency Y')
 
 // Mesh
 const mesh = new THREE.Mesh(geometry, material)
+mesh.scale.y = 2/3
 scene.add(mesh)
 
 /**
@@ -110,6 +112,9 @@ const clock = new THREE.Clock()
 const tick = () =>
 {
     const elapsedTime = clock.getElapsedTime()
+
+    // Update material
+    material.uniforms.uTime.value = elapsedTime
 
     // Update controls
     controls.update()
