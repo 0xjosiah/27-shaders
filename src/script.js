@@ -27,7 +27,9 @@ const flagTexture = textureLoader.load('textures/flag-french.jpg')
  * Test mesh
  */
 // Geometry
-const geometry = new THREE.PlaneGeometry(1, 1, 32, 32)
+// const geometry = new THREE.PlaneGeometry(2, 2, 256, 256)
+const geometry = new THREE.SphereGeometry(1, 64, 64)
+// const geometry = new THREE.OctahedronGeometry(.5, 64, 64)
 
 const count = geometry.attributes.position.count
 const randoms = new Float32Array(count)
@@ -42,19 +44,7 @@ geometry.setAttribute('aRandom', new THREE.BufferAttribute(randoms, 1))
 // this is not necessary but very helpful
 
 // Material
-const material = new THREE.ShaderMaterial({
-    vertexShader: testVertexShader,
-    fragmentShader: testFragmentShader,
-    side: THREE.DoubleSide,
-    // transparent: true,
-    uniforms: {
-        uFrequency: { value: new THREE.Vector2(10, 5) },
-        uTime: { value: 0, },
-        uColor: { value: new THREE.Color(0xf9009f) },
-        uTexture: { value: flagTexture }
-    }
-})
-// const material = new THREE.RawShaderMaterial({
+// const material = new THREE.ShaderMaterial({
 //     vertexShader: testVertexShader,
 //     fragmentShader: testFragmentShader,
 //     side: THREE.DoubleSide,
@@ -66,6 +56,18 @@ const material = new THREE.ShaderMaterial({
 //         uTexture: { value: flagTexture }
 //     }
 // })
+const material = new THREE.RawShaderMaterial({
+    vertexShader: testVertexShader,
+    fragmentShader: testFragmentShader,
+    side: THREE.DoubleSide,
+    // transparent: true,
+    uniforms: {
+        uFrequency: { value: new THREE.Vector2(10, 5) },
+        uTime: { value: 0, },
+        uColor: { value: new THREE.Color(0xf9009f) },
+        uTexture: { value: flagTexture }
+    }
+})
 
 gui.add(material.uniforms.uFrequency.value, 'x', 0, 20, .01).name('frequency X')
 gui.add(material.uniforms.uFrequency.value, 'y', 0, 20, .01).name('frequency Y')
@@ -74,6 +76,16 @@ gui.add(material.uniforms.uFrequency.value, 'y', 0, 20, .01).name('frequency Y')
 const mesh = new THREE.Mesh(geometry, material)
 mesh.scale.y = 2/3
 scene.add(mesh)
+
+for(let i = 0; i < 100; i++) {
+    const mesh = new THREE.Mesh(geometry, material)
+    mesh.position.x = (Math.random() - .5) * 20
+    mesh.position.y = (Math.random() - .5) * 20
+    mesh.position.z = (Math.random() - .5) * 20
+    mesh.rotation.x = Math.random() * Math.PI
+    mesh.rotation.y = Math.random() * Math.PI
+    scene.add(mesh)
+}
 
 /**
  * Sizes
